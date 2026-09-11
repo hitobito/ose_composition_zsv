@@ -11,7 +11,7 @@ jobs:
   generate-and-push-sbom:
     uses: hitobito/hitobito/.github/workflows/sbom.yml@master
     with:
-      project_name: hitobito-PROJECTNAME
+      project_name: hitobito-zsv
       dependency_track_url: ${{ vars.DEPENDENCY_TRACK_URL }}
     secrets:
       dependency_track_api_key: ${{ secrets.DEPENDENCY_TRACK_API_KEY }}
