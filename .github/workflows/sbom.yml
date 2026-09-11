@@ -1,0 +1,17 @@
+name: Generate and push an SBOM dependency list
+
+on:
+  push:
+    # Only when tagging a new version which will be deployed
+    tags:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  generate-and-push-sbom:
+    uses: hitobito/hitobito/.github/workflows/sbom.yml@master
+    with:
+      project_name: hitobito-PROJECTNAME
+      dependency_track_url: ${{ vars.DEPENDENCY_TRACK_URL }}
+    secrets:
+      dependency_track_api_key: ${{ secrets.DEPENDENCY_TRACK_API_KEY }}

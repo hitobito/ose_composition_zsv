@@ -1,0 +1,33 @@
+name: Update Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        type: choice
+        description: Type of release. Regular is for normal, planned releases. Patch is for hotfixes and single-customer fix releases. Use custom to manually set a version number.
+        required: true
+        default: regular
+        options:
+          - regular
+          - patch
+          - custom
+      version:
+        type: string
+        description: Manually set version number, if release type is custom
+        required: false
+      target_branch:
+        type: string
+        description: Release a specific branch of the core and wagons. Leave empty for intelligent defaults.
+        required: false
+
+jobs:
+  release:
+    uses: hitobito/hitobito/.github/workflows/release.yml@master
+    with:
+      composition: ${{ github.repository }}
+      release_type: ${{ inputs.release }}
+      next_version: ${{ inputs.version }}
+      stage: production
+      target_branch: ${{ inputs.target_branch }}
+    secrets: inherit
